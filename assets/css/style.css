@@ -171,21 +171,18 @@ strong { font-weight: 600; }
 .tem-marca > .wrap { position: relative; z-index: 1; }
 .marca-dagua {
   position: absolute; z-index: 0; pointer-events: none;
-  transform: translate(-50%, -50%);
+  top: 50%; transform: translateY(-50%);
+  max-width: 100%;
   background: center / contain no-repeat;
 }
+.marca-direita { right: 2%; background-position: right center; }
+.marca-esquerda { left: 2%; background-position: left center; }
 .wm-apolo { background-image: url("../images/wm-apolo.png"); aspect-ratio: 700 / 937; }
 .wm-asclepio { background-image: url("../images/wm-asclepio.png"); aspect-ratio: 440 / 1000; }
 .wm-coluna { background-image: url("../images/wm-coluna.png"); aspect-ratio: 360 / 1124; }
 .wm-atlas { background-image: url("../images/wm-atlas.png"); aspect-ratio: 520 / 925; }
-.wm-flor { background-image: url("../images/wm-flor.png"); aspect-ratio: 300 / 319; }
-.wm-louros { background-image: url("../images/wm-louros.png"); aspect-ratio: 420 / 338; }
-/* Proporção áurea: altura total da seção, proporção preservada */
-.wm-espiral-total {
-  top: 0; bottom: 0; right: 0; transform: none;
-  aspect-ratio: 1239 / 2000;
-  background: url("../images/wm-espiral.png") right center / contain no-repeat;
-}
+.wm-espiral { background-image: url("../images/wm-espiral.png"); aspect-ratio: 1239 / 2000; }
+.marca-dagua.wm-espiral { right: 0; }
 
 /* ── Nav ── */
 .nav {
@@ -225,7 +222,7 @@ strong { font-weight: 600; }
 .hero-visual { display: none; position: relative; justify-content: center; align-items: center; }
 .hero-visual img {
   position: relative; width: 380px; border-radius: 50%;
-  box-shadow: 0 0 0 14px var(--pine), 0 0 0 17px var(--verdigris), 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
   animation: flutua 7s ease-in-out infinite;
 }
 @keyframes flutua { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
