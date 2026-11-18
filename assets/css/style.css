@@ -25,6 +25,7 @@
   --font-head: "canto", "Cormorant Garamond", Georgia, serif;
   --font-base: "Open Sans", "Helvetica Neue", Arial, sans-serif;
   --track-head: -0.025em;
+  --swash: "swsh" 1, "kern" 1;  /* maiúsculas prolongadas da Canto */
 
   --radius: 28px;
   --radius-s: 14px;
@@ -95,9 +96,13 @@ strong { font-weight: 600; }
 }
 
 /* ── Tipografia ── */
+.f-head, .gantt-rotulo, .preco-cheio, .opcao-preco, .momento-n {
+  font-feature-settings: var(--swash);
+}
 .f-head {
   font-family: var(--font-head);
   font-weight: 700;
+  padding-block: 0.06em;
   letter-spacing: var(--track-head);
   line-height: 1.02;
   overflow-wrap: break-word;
