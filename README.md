@@ -5,7 +5,7 @@ Branding e identidade visual para médica cardiologista e ecocardiografista, esp
 
 ## Publicar
 1. GitHub → Settings → Pages → Deploy from a branch → `main` / `(root)`.
-2. (Opcional) Custom domain → marcar "Enforce HTTPS" e ajustar `og:url`/`og:image` no `index.html`.
+2. Endereço: https://lucaserbano.github.io/proposta-brunaerbano/ (CSS/JS versionados com `?v=N`; aumente o N a cada mudança para evitar cache).
 3. Adobe Fonts: adicionar o domínio publicado ao projeto web `fzu1yoy` para a Canto carregar.
 
 ## Identidade

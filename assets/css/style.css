@@ -166,17 +166,15 @@ strong { font-weight: 600; }
 .tem-marca > .wrap { position: relative; z-index: 1; }
 .marca-dagua {
   position: absolute; z-index: 0; pointer-events: none;
-  background-color: var(--wm);
-  -webkit-mask: var(--img) center / contain no-repeat;
-  mask: var(--img) center / contain no-repeat;
-  opacity: var(--op, 0.07);
+  background: center / contain no-repeat;
+  opacity: var(--op, 0.13);
 }
-.md-apolo { --img: url("../images/el-apolo.png"); aspect-ratio: 900 / 1200; }
-.md-asclepio { --img: url("../images/el-asclepio.png"); aspect-ratio: 600 / 1361; }
-.md-coluna { --img: url("../images/el-coluna.png"); aspect-ratio: 500 / 1555; }
-.md-atlas { --img: url("../images/el-atlas.png"); aspect-ratio: 700 / 1246; }
-.md-espiral { --img: url("../images/el-espiral.png"); aspect-ratio: 1400 / 867; }
-.md-flor { --img: url("../images/el-flor.png"); aspect-ratio: 400 / 426; }
+.md-apolo { background-image: url("../images/md-apolo-pine.png"); aspect-ratio: 900 / 1200; }
+.tema-pine .md-apolo { background-image: url("../images/md-apolo-creme.png"); }
+.md-asclepio { background-image: url("../images/md-asclepio-pine.png"); aspect-ratio: 600 / 1361; }
+.md-coluna { background-image: url("../images/md-coluna-verde.png"); aspect-ratio: 500 / 1555; }
+.md-espiral { background-image: url("../images/md-espiral-preto.png"); aspect-ratio: 1400 / 867; }
+.md-flor { background-image: url("../images/md-flor-pine.png"); aspect-ratio: 400 / 426; }
 @media (max-width: 999px) { .marca-dagua { display: none; } }
 
 /* ── Nav ── */
@@ -215,11 +213,11 @@ strong { font-weight: 600; }
 .assinatura strong { color: var(--fg); font-weight: 600; }
 
 .hero-visual { display: none; position: relative; justify-content: center; align-items: center; }
-.hero-visual::before {
-  content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%;
-  background: var(--verdigris); opacity: 0.9;
+.hero-visual img {
+  position: relative; width: 380px; border-radius: 50%;
+  box-shadow: 0 0 0 14px var(--pine), 0 0 0 17px var(--verdigris), 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+  animation: flutua 7s ease-in-out infinite;
 }
-.hero-visual img { position: relative; width: 300px; animation: flutua 7s ease-in-out infinite; }
 @keyframes flutua { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
 .rolar {
@@ -299,7 +297,7 @@ strong { font-weight: 600; }
 .destaque { color: var(--fg); font-weight: 400; box-shadow: inset 0 -0.45em 0 rgba(21, 153, 140, 0.35); }
 
 /* Etapas (verde claro + preto) */
-#etapas .md-espiral { right: -140px; top: 50%; width: 600px; transform: translateY(-50%); --op: 0.14; }
+#etapas .md-espiral { right: -140px; top: 50%; width: 600px; transform: translateY(-50%); --op: 0.3; }
 .etapas { position: relative; margin-top: var(--space-5); max-width: 760px; }
 .etapas-linha { position: absolute; left: 11px; top: 14px; bottom: 14px; width: 2px; background: rgba(0, 0, 0, 0.18); }
 .etapas-linha span { display: block; height: 100%; background: var(--black); transform-origin: top; transform: scaleY(0); }
@@ -320,19 +318,19 @@ strong { font-weight: 600; }
 /* Entregáveis (creme) */
 .mockups { position: relative; overflow: hidden; }
 .mockups > :not(.marca-dagua) { position: relative; z-index: 1; }
-.mockups .md-coluna { left: 64px; bottom: -80px; height: 230px; --op: 0.35; }
+.mockups .md-coluna { left: 64px; bottom: -80px; height: 230px; --op: 0.4; }
 .entregaveis { display: grid; grid-template-columns: 1fr; gap: var(--space-5); margin-top: var(--space-5); }
 .entregavel .entregavel-glifo {
   font-family: var(--font-head); font-weight: 700; letter-spacing: var(--track-head);
   font-size: 72px; line-height: 1; height: 80px; display: flex; align-items: flex-end;
   color: var(--verdigris); margin-bottom: var(--space-3); max-width: none;
 }
-.paleta { gap: 0; }
-.paleta i { display: block; height: 72px; border-radius: 999px; margin-right: -8px; box-shadow: 0 0 0 3px var(--petal); }
-.paleta i:nth-child(1) { width: 90px; background: var(--petal-2); }
-.paleta i:nth-child(2) { width: 46px; background: var(--pine); }
-.paleta i:nth-child(3) { width: 46px; background: var(--verdigris); }
-.paleta i:nth-child(4) { width: 34px; background: var(--black); }
+.paleta { gap: 6px; }
+.paleta i { display: block; flex: none; height: 72px; border-radius: 36px; }
+.paleta i:nth-child(1) { width: 100px; background: var(--petal-2); }
+.paleta i:nth-child(2) { width: 40px; background: var(--pine); }
+.paleta i:nth-child(3) { width: 40px; background: var(--verdigris); }
+.paleta i:nth-child(4) { width: 20px; background: var(--black); }
 .glifo-img img { height: 76px; width: auto; }
 .glifo-estampa span { display: block; width: 150px; height: 80px; border-radius: var(--radius-s); background: url("../images/pattern-1.jpg") center / 420px auto; border: 1px solid var(--line); }
 .glifo-estampa span + span { margin-left: -40px; background: var(--pine) url("../images/pattern-2.png") center / 520px auto; box-shadow: -6px 0 0 var(--petal); border-color: transparent; }
@@ -350,12 +348,12 @@ strong { font-weight: 600; }
 .mockups-intro p { color: var(--fg-body); font-size: 16px; margin-bottom: var(--space-4); }
 .mockups-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
 .mockups-lista li { border: 1px solid rgba(21, 153, 140, 0.45); border-radius: var(--radius-s); padding: var(--space-3) var(--space-2); font-size: 15px; font-weight: 400; color: var(--petal); line-height: 1.4; min-height: 112px; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-2); overflow-wrap: break-word; transition: background-color 0.3s var(--ease), color 0.3s var(--ease); }
-.mockups-lista li::before { content: ""; width: 30px; height: 26px; background: var(--verdigris); -webkit-mask: url("../images/simbolo.png") left center / contain no-repeat; mask: url("../images/simbolo.png") left center / contain no-repeat; }
+.mockups-lista li::before { content: ""; width: 30px; height: 26px; background: url("../images/simbolo-verde.png") left center / contain no-repeat; }
 .mockups-lista li:hover { background: var(--verdigris); color: var(--black); }
-.mockups-lista li:hover::before { background: var(--black); }
+.mockups-lista li:hover::before { background-image: url("../images/simbolo-preto.png"); }
 
 /* Opcionais (creme; cartão preto) */
-#opcionais .md-flor { right: 6%; top: 160px; width: 320px; --op: 0.08; }
+#opcionais .md-flor { right: 6%; top: 160px; width: 320px; --op: 0.12; }
 .momentos { display: grid; grid-template-columns: 1fr; gap: var(--space-5); }
 @media (min-width: 720px) { .momentos.momentos-unico { grid-template-columns: minmax(0, 1fr); max-width: 640px; } }
 .momento { padding: var(--space-4) var(--space-3); border-radius: var(--radius); }
@@ -363,7 +361,7 @@ strong { font-weight: 600; }
 .momento-titulo { font-size: 32px; margin-bottom: var(--space-3); }
 
 /* Prazos (verde escuro) */
-#prazos .md-apolo { right: -20px; top: 24px; height: 380px; --op: 0.1; }
+#prazos .md-apolo { right: -20px; top: 24px; height: 380px; --op: 0.16; }
 .gantt { --label: 150px; margin-top: var(--space-5); }
 .gantt-cab, .gantt-linha { display: grid; grid-template-columns: var(--label) repeat(var(--cols, 8), minmax(0, 1fr)); column-gap: 6px; }
 .gantt-meses .mes { font-size: 13px; text-transform: uppercase; color: var(--fg); font-weight: 400; padding-bottom: var(--space-1); border-bottom: 1px solid var(--line-2); }
@@ -443,8 +441,8 @@ strong { font-weight: 600; }
 
 /* Fechamento (creme + Apollo) */
 .fechamento { text-align: center; padding: var(--space-6) 0; }
-.fechamento .md-apolo { left: -170px; bottom: -30px; height: 480px; --op: 0.1; }
-.fechamento .md-asclepio { right: -70px; bottom: -30px; height: 480px; --op: 0.08; }
+.fechamento .md-apolo { left: -170px; bottom: -30px; height: 480px; --op: 0.16; }
+.fechamento .md-asclepio { right: -70px; bottom: -30px; height: 480px; --op: 0.14; }
 .fechamento .logo-zona { --logo-h: 120px; margin: 0 auto; }
 .fechamento-titulo { font-size: clamp(56px, 13vw, 132px); margin-bottom: var(--space-3); }
 .fechamento-sub { font-size: clamp(18px, 2.3vw, 24px); color: var(--fg-body); margin-bottom: var(--space-4); }
