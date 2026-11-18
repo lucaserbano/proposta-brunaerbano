@@ -27,7 +27,29 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
-  revelar('[data-reveal]', { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+  revelar('[data-reveal]:not(.f-head)', { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+  // Títulos revelados como inscrição (clip-path): o recorte zera a área visível do próprio
+  // elemento para o IntersectionObserver, então observamos o elemento pai.
+  (function () {
+    var titulos = document.querySelectorAll('.f-head[data-reveal]');
+    if (reduz || !temIO) {
+      titulos.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target._titulos.forEach(function (t) { t.classList.add('is-visible'); });
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+    titulos.forEach(function (t) {
+      var pai = t.parentNode;
+      (pai._titulos = pai._titulos || []).push(t);
+      io.observe(pai);
+    });
+  })();
 
   revelar('.etapa', { threshold: 0, rootMargin: '0px 0px -40% 0px' });
 
@@ -111,7 +133,7 @@
     if (reduz || origem === destino) { escreverTotal(destino); return; }
     var inicio = performance.now();
     function passo(agora) {
-      var k = Math.min(1, (agora - inicio) / 400);
+      var k = Math.min(1, (agora - inicio) / 1100);
       var suave = 1 - Math.pow(1 - k, 3);
       escreverTotal(Math.round(origem + (destino - origem) * suave));
       if (k < 1) quadro = window.requestAnimationFrame(passo);

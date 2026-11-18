@@ -39,6 +39,7 @@
   --space-7: 160px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-antigo: cubic-bezier(0.33, 0, 0.2, 1);  /* lento, sem rebote: pedra, tinta, papiro */
   --nav-h: 80px;
   --logo-nav: 44px;
 }
@@ -144,10 +145,9 @@ strong { font-weight: 600; }
   border-radius: 999px;
   text-decoration: none;
   text-align: center;
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
+  transition: background-color 0.7s var(--ease-antigo), color 0.7s var(--ease-antigo);
 }
-.btn:hover { transform: translateY(-2px); background: var(--mint); box-shadow: 0 14px 36px -14px rgba(0, 0, 0, 0.55); }
-.btn:active { transform: translateY(0); }
+.btn:hover { background: var(--mint); }
 .btn-small { padding: 12px 20px; font-size: 12px; }
 .btn-block { display: block; width: 100%; }
 
@@ -174,7 +174,10 @@ strong { font-weight: 600; }
   top: 50%; transform: translateY(-50%);
   max-width: 100%;
   background: center / contain no-repeat;
+  opacity: 0;
+  transition: opacity 3.2s var(--ease-antigo);
 }
+.js .tem-marca.marca-on .marca-dagua, .no-js .marca-dagua { opacity: var(--op); }
 .marca-direita { right: 2%; background-position: right center; }
 .marca-esquerda { left: 2%; background-position: left center; }
 .wm-apolo { background-image: url("../images/wm-apolo.png"); aspect-ratio: 700 / 937; }
@@ -223,9 +226,9 @@ strong { font-weight: 600; }
 .hero-visual img {
   position: relative; width: 380px; border-radius: 50%;
   box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
-  animation: flutua 7s ease-in-out infinite;
 }
-@keyframes flutua { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.js .hero-visual img { opacity: 0; filter: blur(10px) sepia(0.6); transform: rotate(-14deg) scale(0.94); animation: selo 2.8s var(--ease-antigo) 0.5s forwards; }
+@keyframes selo { to { opacity: 1; filter: none; transform: none; } }
 
 .rolar {
   position: absolute; left: 50%; bottom: var(--space-4); transform: translateX(-50%); z-index: 1;
@@ -234,7 +237,7 @@ strong { font-weight: 600; }
 }
 .rolar::after {
   content: ""; position: absolute; left: 50%; bottom: 6px; width: 1px; height: 28px; background: var(--mint);
-  transform-origin: top; animation: rolarLinha 2s var(--ease) infinite;
+  transform-origin: top; animation: rolarLinha 3.6s var(--ease-antigo) infinite;
 }
 @keyframes rolarLinha { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 
@@ -277,19 +280,22 @@ strong { font-weight: 600; }
 .js .sem-js { display: none !important; }
 
 /* ── Entrada do hero ── */
-.js .hero-in { opacity: 0; transform: translateY(24px); animation: rise 0.9s var(--ease) forwards; animation-delay: calc(var(--i, 0) * 0.1s + 0.1s); }
-.js .rolar.hero-in { transform: translate(-50%, 24px); animation-name: riseCentro; }
-@keyframes rise { to { opacity: 1; transform: none; } }
-@keyframes riseCentro { to { opacity: 1; transform: translate(-50%, 0); } }
+.js .hero-in { opacity: 0; filter: blur(8px); animation: tinta 1.8s var(--ease-antigo) forwards; animation-delay: calc(var(--i, 0) * 0.35s + 0.2s); }
+.js .hero-title .hero-in { clip-path: inset(-0.3em 100% -0.3em -0.6em); animation-name: inscricao; animation-duration: 2.2s; }
+@keyframes tinta { to { opacity: 1; filter: none; } }
+@keyframes inscricao { 30% { opacity: 1; } to { opacity: 1; filter: none; clip-path: inset(-0.3em -0.6em -0.3em -0.6em); } }
 
 /* ── Revelação padrão ── */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-  transition-delay: calc(var(--i, 0) * 0.1s);
+  filter: blur(6px);
+  transform: translateY(10px);
+  transition: opacity 1.6s var(--ease-antigo), filter 1.6s var(--ease-antigo), transform 1.6s var(--ease-antigo), clip-path 2s var(--ease-antigo);
+  transition-delay: calc(var(--i, 0) * 0.22s);
 }
-.js [data-reveal].is-visible { opacity: 1; transform: none; }
+.js [data-reveal].is-visible { opacity: 1; filter: none; transform: none; }
+.js .f-head[data-reveal] { transform: none; clip-path: inset(-0.3em 100% -0.3em -0.6em); }
+.js .f-head[data-reveal].is-visible { clip-path: inset(-0.3em -0.6em -0.3em -0.6em); }
 
 /* Objetivos (creme) */
 .objetivos { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-4); }
@@ -306,18 +312,17 @@ strong { font-weight: 600; }
 /* Etapas (verde claro + preto) */
 .etapas { position: relative; margin-top: var(--space-5); max-width: 760px; }
 .etapas-linha { position: absolute; left: 11px; top: 14px; bottom: 14px; width: 2px; background: rgba(0, 0, 0, 0.18); }
-.etapas-linha span { display: block; height: 100%; background: var(--black); transform-origin: top; transform: scaleY(0); }
+.etapas-linha span { display: block; height: 100%; background: var(--black); transform-origin: top; transform: scaleY(0); transition: transform 0.6s linear; }
 .etapa { position: relative; padding-left: 64px; padding-bottom: var(--space-6); }
 .etapa:last-child { padding-bottom: 0; }
-.etapa-no { position: absolute; left: 0; top: 6px; width: 24px; height: 24px; border-radius: 50%; background: var(--verdigris); border: 2px solid rgba(0, 0, 0, 0.35); transition: border-color 0.5s var(--ease), background-color 0.5s var(--ease); }
-.etapa.is-visible .etapa-no { border-color: var(--black); background: var(--black); box-shadow: inset 0 0 0 5px var(--black), inset 0 0 0 12px var(--petal); animation: pulso 0.7s var(--ease); }
-@keyframes pulso { 50% { transform: scale(1.25); } }
+.etapa-no { position: absolute; left: 0; top: 6px; width: 24px; height: 24px; border-radius: 50%; background: var(--verdigris); border: 2px solid rgba(0, 0, 0, 0.35); transition: border-color 1.4s var(--ease-antigo), background-color 1.4s var(--ease-antigo), box-shadow 1.4s var(--ease-antigo); }
+.etapa.is-visible .etapa-no { border-color: var(--black); background: var(--black); box-shadow: inset 0 0 0 5px var(--black), inset 0 0 0 12px var(--petal); }
 .etapa-n { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--fg-2); }
 .etapa-titulo { font-size: clamp(38px, 7vw, 64px); margin: var(--space-1) 0 var(--space-3); }
 .etapa p { color: var(--fg-body); font-size: 17px; font-weight: 400; max-width: 34em; }
 .etapa p + p { margin-top: var(--space-2); }
-.js .etapa-corpo { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
-.js .etapa.is-visible .etapa-corpo { opacity: 1; transform: none; }
+.js .etapa-corpo { opacity: 0; filter: blur(6px); transition: opacity 1.8s var(--ease-antigo) 0.3s, filter 1.8s var(--ease-antigo) 0.3s; }
+.js .etapa.is-visible .etapa-corpo { opacity: 1; filter: none; }
 .no-js .etapas-linha span { transform: none; }
 .no-js .etapa-no { background: var(--black); border-color: var(--black); }
 
@@ -329,11 +334,11 @@ strong { font-weight: 600; }
   color: var(--verdigris); margin-bottom: var(--space-3); max-width: none;
 }
 .paleta { gap: 6px; }
-.paleta i { display: block; flex: none; height: 72px; border-radius: 36px; }
-.paleta i:nth-child(1) { width: 100px; background: var(--petal-2); }
-.paleta i:nth-child(2) { width: 40px; background: var(--pine); }
-.paleta i:nth-child(3) { width: 40px; background: var(--verdigris); }
-.paleta i:nth-child(4) { width: 20px; background: var(--black); }
+.paleta i { display: block; flex: none; width: 40px; height: 72px; border-radius: 20px; }
+.paleta i:nth-child(1) { background: var(--petal-2); }
+.paleta i:nth-child(2) { background: var(--pine); }
+.paleta i:nth-child(3) { background: var(--verdigris); }
+.paleta i:nth-child(4) { background: var(--black); }
 .glifo-img img { height: 76px; width: auto; }
 .glifo-estampa span { display: block; width: 150px; height: 80px; border-radius: var(--radius-s); background: url("../images/pattern-1.jpg") center / 420px auto; border: 1px solid var(--line); }
 .glifo-estampa span + span { margin-left: -40px; background: var(--pine) url("../images/pattern-2.png") center / 520px auto; box-shadow: -6px 0 0 var(--petal); border-color: transparent; }
@@ -350,7 +355,7 @@ strong { font-weight: 600; }
 .mockups .entregavel-titulo { color: var(--petal); }
 .mockups-intro p { color: var(--fg-body); font-size: 16px; margin-bottom: var(--space-4); }
 .mockups-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
-.mockups-lista li { border: 1px solid rgba(21, 153, 140, 0.45); border-radius: var(--radius-s); padding: var(--space-3) var(--space-2); font-size: 15px; font-weight: 400; color: var(--petal); line-height: 1.4; min-height: 112px; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-2); overflow-wrap: break-word; transition: background-color 0.3s var(--ease), color 0.3s var(--ease); }
+.mockups-lista li { border: 1px solid rgba(21, 153, 140, 0.45); border-radius: var(--radius-s); padding: var(--space-3) var(--space-2); font-size: 15px; font-weight: 400; color: var(--petal); line-height: 1.4; min-height: 112px; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-2); overflow-wrap: break-word; transition: background-color 0.9s var(--ease-antigo), color 0.9s var(--ease-antigo); }
 .mockups-lista li::before { content: ""; width: 30px; height: 26px; background: url("../images/simbolo-verde.png") left center / contain no-repeat; }
 .mockups-lista li:hover { background: var(--verdigris); color: var(--black); }
 .mockups-lista li:hover::before { background-image: url("../images/simbolo-preto.png"); }
@@ -370,7 +375,7 @@ strong { font-weight: 600; }
 .gantt-linha { align-items: center; padding: var(--space-2) 0; border-top: 1px solid var(--line); }
 .gantt-rotulo { grid-column: 1; grid-row: 1; font-family: var(--font-head); font-weight: 700; letter-spacing: var(--track-head); font-size: 20px; }
 .gantt-barra { grid-row: 1; height: 18px; border-radius: 9px; background: var(--c); transform-origin: left; }
-.js .gantt-barra { transform: scaleX(0); transition: transform 0.7s var(--ease); transition-delay: calc(var(--i, 0) * 0.15s); }
+.js .gantt-barra { transform: scaleX(0); transition: transform 1.6s var(--ease-antigo); transition-delay: calc(var(--i, 0) * 0.45s); }
 .js .gantt.is-visible .gantt-barra { transform: none; }
 .sem-curto { display: none; }
 
@@ -510,12 +515,13 @@ strong { font-weight: 600; }
 /* ── Movimento reduzido ── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .hero-in { opacity: 1; transform: none; animation: none; }
+  .js .hero-in, .js .hero-title .hero-in, .js .hero-visual img { opacity: 1; filter: none; transform: none; clip-path: none; animation: none; }
+  .marca-dagua { transition: none; }
   .js .rolar.hero-in { transform: translateX(-50%); }
-  .hero-visual img, .rolar::after { animation: none; }
+  .rolar::after { animation: none; }
   .btn, .link, .mockups-lista li { transition: none; }
-  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
-  .js .etapa-corpo { opacity: 1; transform: none; transition: none; }
+  .js [data-reveal], .js .f-head[data-reveal] { opacity: 1; filter: none; transform: none; clip-path: none; transition: none; }
+  .js .etapa-corpo { opacity: 1; filter: none; transition: none; }
   .etapas-linha span { transform: none !important; }
   .etapa .etapa-no { background: var(--black); border-color: var(--black); animation: none !important; transition: none; }
   .js .gantt-barra { transform: none; transition: none; }
