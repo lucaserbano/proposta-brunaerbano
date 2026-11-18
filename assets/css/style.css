@@ -161,21 +161,26 @@ strong { font-weight: 600; }
 .logo-zona { display: inline-block; padding: calc(var(--logo-h) * 0.4); }
 .logo-zona img { height: var(--logo-h); width: auto; }
 
-/* ── Marcas d'água (elementos de suporte) ── */
-.tem-marca { position: relative; overflow: hidden; }
+/* ── Marcas d'água (elementos de suporte, cores do arquivo original) ── */
+.tem-marca { position: relative; overflow: clip; }
 .tem-marca > .wrap { position: relative; z-index: 1; }
 .marca-dagua {
   position: absolute; z-index: 0; pointer-events: none;
+  transform: translate(-50%, -50%);
   background: center / contain no-repeat;
-  opacity: var(--op, 0.13);
 }
-.md-apolo { background-image: url("../images/md-apolo-pine.png"); aspect-ratio: 900 / 1200; }
-.tema-pine .md-apolo { background-image: url("../images/md-apolo-creme.png"); }
-.md-asclepio { background-image: url("../images/md-asclepio-pine.png"); aspect-ratio: 600 / 1361; }
-.md-coluna { background-image: url("../images/md-coluna-verde.png"); aspect-ratio: 500 / 1555; }
-.md-espiral { background-image: url("../images/md-espiral-preto.png"); aspect-ratio: 1400 / 867; }
-.md-flor { background-image: url("../images/md-flor-pine.png"); aspect-ratio: 400 / 426; }
-@media (max-width: 999px) { .marca-dagua { display: none; } }
+.wm-apolo { background-image: url("../images/wm-apolo.png"); aspect-ratio: 700 / 937; }
+.wm-asclepio { background-image: url("../images/wm-asclepio.png"); aspect-ratio: 440 / 1000; }
+.wm-coluna { background-image: url("../images/wm-coluna.png"); aspect-ratio: 360 / 1124; }
+.wm-atlas { background-image: url("../images/wm-atlas.png"); aspect-ratio: 520 / 925; }
+.wm-flor { background-image: url("../images/wm-flor.png"); aspect-ratio: 300 / 319; }
+.wm-louros { background-image: url("../images/wm-louros.png"); aspect-ratio: 420 / 338; }
+/* Proporção áurea: altura total da seção, proporção preservada */
+.wm-espiral-total {
+  top: 0; bottom: 0; right: 0; transform: none;
+  aspect-ratio: 1239 / 2000;
+  background: url("../images/wm-espiral.png") right center / contain no-repeat;
+}
 
 /* ── Nav ── */
 .nav {
@@ -297,7 +302,6 @@ strong { font-weight: 600; }
 .destaque { color: var(--fg); font-weight: 400; box-shadow: inset 0 -0.45em 0 rgba(21, 153, 140, 0.35); }
 
 /* Etapas (verde claro + preto) */
-#etapas .md-espiral { right: -140px; top: 50%; width: 600px; transform: translateY(-50%); --op: 0.3; }
 .etapas { position: relative; margin-top: var(--space-5); max-width: 760px; }
 .etapas-linha { position: absolute; left: 11px; top: 14px; bottom: 14px; width: 2px; background: rgba(0, 0, 0, 0.18); }
 .etapas-linha span { display: block; height: 100%; background: var(--black); transform-origin: top; transform: scaleY(0); }
@@ -316,9 +320,6 @@ strong { font-weight: 600; }
 .no-js .etapa-no { background: var(--black); border-color: var(--black); }
 
 /* Entregáveis (creme) */
-.mockups { position: relative; overflow: hidden; }
-.mockups > :not(.marca-dagua) { position: relative; z-index: 1; }
-.mockups .md-coluna { left: 64px; bottom: -80px; height: 230px; --op: 0.4; }
 .entregaveis { display: grid; grid-template-columns: 1fr; gap: var(--space-5); margin-top: var(--space-5); }
 .entregavel .entregavel-glifo {
   font-family: var(--font-head); font-weight: 700; letter-spacing: var(--track-head);
@@ -353,7 +354,6 @@ strong { font-weight: 600; }
 .mockups-lista li:hover::before { background-image: url("../images/simbolo-preto.png"); }
 
 /* Opcionais (creme; cartão preto) */
-#opcionais .md-flor { right: 6%; top: 160px; width: 320px; --op: 0.12; }
 .momentos { display: grid; grid-template-columns: 1fr; gap: var(--space-5); }
 @media (min-width: 720px) { .momentos.momentos-unico { grid-template-columns: minmax(0, 1fr); max-width: 640px; } }
 .momento { padding: var(--space-4) var(--space-3); border-radius: var(--radius); }
@@ -361,7 +361,6 @@ strong { font-weight: 600; }
 .momento-titulo { font-size: 32px; margin-bottom: var(--space-3); }
 
 /* Prazos (verde escuro) */
-#prazos .md-apolo { right: -20px; top: 24px; height: 380px; --op: 0.16; }
 .gantt { --label: 150px; margin-top: var(--space-5); }
 .gantt-cab, .gantt-linha { display: grid; grid-template-columns: var(--label) repeat(var(--cols, 8), minmax(0, 1fr)); column-gap: 6px; }
 .gantt-meses .mes { font-size: 13px; text-transform: uppercase; color: var(--fg); font-weight: 400; padding-bottom: var(--space-1); border-bottom: 1px solid var(--line-2); }
@@ -441,8 +440,6 @@ strong { font-weight: 600; }
 
 /* Fechamento (creme + Apollo) */
 .fechamento { text-align: center; padding: var(--space-6) 0; }
-.fechamento .md-apolo { left: -170px; bottom: -30px; height: 480px; --op: 0.16; }
-.fechamento .md-asclepio { right: -70px; bottom: -30px; height: 480px; --op: 0.14; }
 .fechamento .logo-zona { --logo-h: 120px; margin: 0 auto; }
 .fechamento-titulo { font-size: clamp(56px, 13vw, 132px); margin-bottom: var(--space-3); }
 .fechamento-sub { font-size: clamp(18px, 2.3vw, 24px); color: var(--fg-body); margin-bottom: var(--space-4); }
